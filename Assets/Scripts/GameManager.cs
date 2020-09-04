@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviour
 	// set things up here
 	void Awake()
 	{
+		Time.timeScale = 1f;
 		// setup reference to game manager
 		if (gm == null)
 			gm = this.GetComponent<GameManager>();
@@ -132,7 +133,7 @@ public class GameManager : MonoBehaviour
 	void refreshGUI()
 	{
 		// set the text elements of the UI
-		UIScore.text = "Score: " + score.ToString();
+		UIScore.text = score.ToString();
 		UIHighScore.text = "Highscore: " + highscore.ToString();
 		UILevel.text = _scene.name;
 
@@ -157,7 +158,7 @@ public class GameManager : MonoBehaviour
 		score += amount;
 
 		// update UI
-		UIScore.text = "Score: " + score.ToString();
+		UIScore.text = score.ToString();
 
 		// if score>highscore then update the highscore UI too
 		if (score > highscore)
