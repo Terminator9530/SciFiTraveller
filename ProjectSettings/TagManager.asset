@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Platform
   - MovingPlatform
+  - Enemy
+  - Barrel
   layers:
   - Default
   - TransparentFX
