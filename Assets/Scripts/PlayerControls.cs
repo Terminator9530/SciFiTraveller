@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement; // include so we can load new scenes
+using UnityStandardAssets._2D;
+using UnityEngine.UI;
 
 public class PlayerControls : MonoBehaviour
 {
@@ -10,6 +12,8 @@ public class PlayerControls : MonoBehaviour
 	public float moveSpeed = 3f;
 
 	public float jumpForce = 600f;
+
+	public GameObject healthBar;
 
 	// player health
 	public int playerHealth = 1;
@@ -33,6 +37,8 @@ public class PlayerControls : MonoBehaviour
 	public AudioClip victorySFX;
 	public GameObject bullet;
 	public GameObject bulletShoot;
+	public GameObject aeroplane;
+	public GameObject cameraObject;
 	public AudioClip shoot;
 	public float bulletForce;
 
@@ -63,6 +69,7 @@ public class PlayerControls : MonoBehaviour
 
 	void Awake()
 	{
+		healthBar.GetComponent<Slider>().value = playerHealth;
 		// get a reference to the components we are going to be changing and store a reference for efficiency purposes
 		_transform = GetComponent<Transform>();
 
@@ -176,6 +183,21 @@ public class PlayerControls : MonoBehaviour
 			else
 			bulletInstance.GetComponent<Rigidbody2D>().AddForce(new Vector2(bulletForce * -1, 0));
 		}
+
+		if (Input.GetKeyDown(KeyCode.Z))
+		{
+			aeroplane.SetActive(true);
+			healthBar.GetComponent<Slider>().value = aeroplane.GetComponent<AeroplaneController>().playerHealth;
+			aeroplane.transform.position = gameObject.transform.position;
+			cameraObject.GetComponent<CameraFollow>().target = aeroplane.transform;
+			gameObject.SetActive(false);
+		}
+
+		// debugging health
+		if (Input.GetKeyDown(KeyCode.M))
+		{
+			ApplyDamage(5);
+		}
 	}
 
 	// Checking to see if the sprite should be flipped
@@ -256,6 +278,7 @@ public class PlayerControls : MonoBehaviour
 		if (playerCanMove)
 		{
 			playerHealth -= damage;
+			healthBar.GetComponent<Slider>().value = playerHealth;
 
 			if (playerHealth <= 0)
 			{ // player is now dead, so start dying
@@ -320,7 +343,8 @@ public class PlayerControls : MonoBehaviour
 	public void Respawn(Vector3 spawnloc)
 	{
 		UnFreezeMotion();
-		playerHealth = 1;
+		playerHealth = 100;
+		healthBar.GetComponent<Slider>().value = 100;
 		_transform.parent = null;
 		_transform.position = spawnloc;
 		_animator.SetTrigger("Respawn");

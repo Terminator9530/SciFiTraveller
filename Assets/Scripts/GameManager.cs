@@ -184,8 +184,19 @@ public class GameManager : MonoBehaviour
 			SceneManager.LoadScene(levelAfterGameOver);
 		}
 		else
-		{ // tell the player to respawn
-			_player.GetComponent<PlayerControls>().Respawn(_spawnLocation);
+		{
+			_player = GameObject.FindGameObjectWithTag("Player");
+			if (_player.GetComponent<PlayerControls>() != null)
+			{
+				// tell the player to respawn
+				_player.GetComponent<PlayerControls>().Respawn(_spawnLocation);
+			}
+
+			if (_player.GetComponent<AeroplaneController>() != null)
+			{
+				// tell the player to respawn
+				_player.GetComponent<AeroplaneController>().Respawn(_spawnLocation);
+			}
 		}
 	}
 
