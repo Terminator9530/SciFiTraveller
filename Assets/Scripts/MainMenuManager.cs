@@ -13,7 +13,7 @@ public class MainMenuManager : MonoBehaviour {
 	public GameObject PrivacyPanel;
 	public GameObject ControlsPanel;
 	public GameObject MainMenuPanel;
-	public Slider slider;
+	public Toggle fullScreenToggle;
 
 	// references to Submenus
 	public GameObject _MainMenu;
@@ -40,19 +40,6 @@ public class MainMenuManager : MonoBehaviour {
 
 	// store the initial title so we can set it back
 	private string _mainTitle;
-
-	private void Start()
-	{
-		if (PlayerPrefs.HasKey("Volume"))
-		{
-			slider.value = PlayerPrefs.GetFloat("Volume");
-		}
-		else
-		{
-			slider.value = 0.4f;
-			AdjustVolume(0.4f);
-		}
-	}
 
 	// init the menu
 	void Awake()
@@ -207,11 +194,6 @@ public class MainMenuManager : MonoBehaviour {
 	public void OpenFacebook(string name)
 	{
 		Application.OpenURL("https://www.facebook.com/" + name);
-	}
-
-	public void AdjustVolume(float vol)
-	{
-		PlayerPrefs.SetFloat("Volume", vol);
 	}
 
 	public void PauseMenuMethod()

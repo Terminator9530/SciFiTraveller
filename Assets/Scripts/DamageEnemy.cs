@@ -21,7 +21,12 @@ public class DamageEnemy : MonoBehaviour
     {
         if (collision.gameObject.tag == "Enemy")
         {
+            if(collision.gameObject.GetComponent<SpaceShip>() != null)
             collision.gameObject.GetComponent<SpaceShip>().ApplyDamage(damage);
+
+            if (collision.gameObject.GetComponent<EnemyController>() != null)
+            collision.gameObject.GetComponent<EnemyController>().ApplyDamage(damage);
+
             Destroy(gameObject);
         }
 
