@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
 	public Text UILevel;
 	public GameObject[] UIExtraLives;
 	public GameObject UIGamePaused;
+	public GameObject settingUI;
 
 	// private variables
 	GameObject _player;
@@ -46,6 +47,7 @@ public class GameManager : MonoBehaviour
 	// game loop
 	void Update()
 	{
+		if(!settingUI.activeInHierarchy)
 		// if ESC pressed then pause the game
 		if (Input.GetKeyDown(KeyCode.Escape))
 		{
