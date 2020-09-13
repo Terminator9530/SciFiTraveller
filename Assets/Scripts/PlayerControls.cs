@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine.SceneManagement; // include so we can load new scenes
 using UnityStandardAssets._2D;
 using UnityEngine.UI;
+using UnityStandardAssets.CrossPlatformInput;
 
 public class PlayerControls : MonoBehaviour
 {
