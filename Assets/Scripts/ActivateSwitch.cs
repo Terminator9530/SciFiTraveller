@@ -9,6 +9,7 @@ public class ActivateSwitch : MonoBehaviour
     public GameObject doorLocked;
     public GameObject doorUnlocked;
     private bool isTriggered = false;
+    public GameObject secretCodeInputPanel;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,10 +21,7 @@ public class ActivateSwitch : MonoBehaviour
     {
         if (isTriggered && Input.GetKeyDown(KeyCode.E))
         {
-            activatedSwitch.SetActive(true);
-            doorLocked.SetActive(false);
-            doorUnlocked.SetActive(true);
-            gameObject.SetActive(false);
+            secretCodeInputPanel.SetActive(true);
         }
     }
 
@@ -43,5 +41,13 @@ public class ActivateSwitch : MonoBehaviour
             isTriggered = false;
             canvas.SetActive(false);
         }
+    }
+
+    public void ActivateDoor()
+    {
+        activatedSwitch.SetActive(true);
+        doorLocked.SetActive(false);
+        doorUnlocked.SetActive(true);
+        gameObject.SetActive(false);
     }
 }
