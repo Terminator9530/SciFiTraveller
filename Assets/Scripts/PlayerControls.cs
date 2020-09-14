@@ -105,7 +105,7 @@ public class PlayerControls : MonoBehaviour
 			return;
 
 		// determine horizontal velocity change based on the horizontal input
-		_vx = Input.GetAxisRaw("Horizontal");
+		_vx = CrossPlatformInputManager.GetAxisRaw("Horizontal");
 
 		// Determine if running based on the horizontal movement
 		if (_vx != 0)
@@ -137,11 +137,11 @@ public class PlayerControls : MonoBehaviour
 		// Set the grounded animation states
 		_animator.SetBool("Grounded", isGrounded);
 
-		if (isGrounded && Input.GetButtonDown("Jump")) // If grounded AND jump button pressed, then allow the player to jump
+		if (isGrounded && CrossPlatformInputManager.GetButtonDown("Jump")) // If grounded AND jump button pressed, then allow the player to jump
 		{
 			doJump();
 		}
-		else if (canDoubleJump && Input.GetButtonDown("Jump"))
+		else if (canDoubleJump && CrossPlatformInputManager.GetButtonDown("Jump"))
 		{
 			doJump();
 			canDoubleJump = false;
@@ -149,7 +149,7 @@ public class PlayerControls : MonoBehaviour
 
 		// If the player stops jumping mid jump and player is not yet falling
 		// then set the vertical velocity to 0 (he will start to fall from gravity)
-		if (Input.GetButtonUp("Jump") && _vy > 0f)
+		if (CrossPlatformInputManager.GetButtonUp("Jump") && _vy > 0f)
 		{
 			_vy = 0f;
 		}
@@ -163,13 +163,13 @@ public class PlayerControls : MonoBehaviour
 		Physics2D.IgnoreLayerCollision(_playerLayer, _platformLayer, (_vy > 0.0f));
 
 		// shooting
-		if (Input.GetButtonDown("Fire1"))
+		if (CrossPlatformInputManager.GetButtonDown("Fire1"))
 		{
 			isShooting = true;
 			PlaySound(shoot);
 		}
 
-		if (Input.GetButtonUp("Fire1"))
+		if (CrossPlatformInputManager.GetButtonUp("Fire1"))
 		{
 			isShooting = false;
 		}
@@ -185,19 +185,13 @@ public class PlayerControls : MonoBehaviour
 			bulletInstance.GetComponent<Rigidbody2D>().AddForce(new Vector2(bulletForce * -1, 0));
 		}
 
-		if (Input.GetKeyDown(KeyCode.Z))
+		if (CrossPlatformInputManager.GetButtonDown("Switch"))
 		{
 			aeroplane.SetActive(true);
 			healthBar.GetComponent<Slider>().value = aeroplane.GetComponent<AeroplaneController>().playerHealth;
 			aeroplane.transform.position = gameObject.transform.position;
 			cameraObject.GetComponent<CameraFollow>().target = aeroplane.transform;
 			gameObject.SetActive(false);
-		}
-
-		// debugging health
-		if (Input.GetKeyDown(KeyCode.M))
-		{
-			ApplyDamage(5);
 		}
 	}
 

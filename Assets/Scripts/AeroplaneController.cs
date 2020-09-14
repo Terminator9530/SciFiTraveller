@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityStandardAssets._2D;
+using UnityStandardAssets.CrossPlatformInput;
 
 public class AeroplaneController : MonoBehaviour
 {
@@ -52,13 +53,13 @@ public class AeroplaneController : MonoBehaviour
         if (!playerCanMove || (Time.timeScale == 0f))
             return;
 
-        _vx = Input.GetAxisRaw("Horizontal");
-        _vy = Input.GetAxisRaw("Vertical");
+        _vx = CrossPlatformInputManager.GetAxisRaw("Horizontal");
+        _vy = CrossPlatformInputManager.GetAxisRaw("Vertical");
 
         // Change the actual velocity on the rigidbody
         gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(_vx * moveSpeed, _vy * moveSpeed);
 
-        if (Input.GetKeyDown(KeyCode.Z))
+        if (CrossPlatformInputManager.GetButtonDown("Switch"))
         {
             player.SetActive(true);
             healthBar.GetComponent<Slider>().value = player.GetComponent<PlayerControls>().playerHealth;
@@ -68,13 +69,13 @@ public class AeroplaneController : MonoBehaviour
         }
 
         // shooting
-        if (Input.GetButtonDown("Fire1"))
+        if (CrossPlatformInputManager.GetButtonDown("Fire1"))
         {
             isShooting = true;
             PlaySound(shoot);
         }
 
-        if (Input.GetButtonUp("Fire1"))
+        if (CrossPlatformInputManager.GetButtonUp("Fire1"))
         {
             isShooting = false;
         }
@@ -88,12 +89,6 @@ public class AeroplaneController : MonoBehaviour
                 bulletInstance.GetComponent<Rigidbody2D>().AddForce(new Vector2(bulletForce * 1, 0));
             else
                 bulletInstance.GetComponent<Rigidbody2D>().AddForce(new Vector2(bulletForce * -1, 0));
-        }
-
-        // debugging health
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            ApplyDamage(5);
         }
     }
 
