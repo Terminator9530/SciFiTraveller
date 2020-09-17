@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityStandardAssets.CrossPlatformInput;
 using Random = UnityEngine.Random;
 
 public class SecretCard : MonoBehaviour
@@ -26,13 +27,13 @@ public class SecretCard : MonoBehaviour
     {
         if(isTriggered && startTime <= endTime)
         {
-            if (Input.GetKeyDown(KeyCode.E))
+            if (CrossPlatformInputManager.GetButtonDown("Interact"))
             {
                 startTime = 0;
                 endTime = startTime + revealingTime;
                 keyDown = true;
             }
-            if (Input.GetKeyUp(KeyCode.E))
+            if (CrossPlatformInputManager.GetButtonUp("Interact"))
             {
                 slider.GetComponent<Slider>().value = 0;
                 keyDown = false;
