@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.UI; // include UI namespace so can reference UI elements
 using UnityEngine.SceneManagement; // include so we can manipulate SceneManager
+using UnityStandardAssets.CrossPlatformInput;
 
 public class GameManager : MonoBehaviour
 {
@@ -47,21 +48,21 @@ public class GameManager : MonoBehaviour
 	// game loop
 	void Update()
 	{
-		if(!settingUI.activeInHierarchy)
-		// if ESC pressed then pause the game
-		if (Input.GetKeyDown(KeyCode.Escape))
-		{
-			if (Time.timeScale > 0f)
+		if (!settingUI.activeInHierarchy)
+			// if ESC pressed then pause the game
+			if (CrossPlatformInputManager.GetButtonDown("Escape"))
 			{
-				UIGamePaused.SetActive(true); // this brings up the pause UI
-				Time.timeScale = 0f; // this pauses the game action
+				if (Time.timeScale > 0f)
+				{
+					UIGamePaused.SetActive(true); // this brings up the pause UI
+					Time.timeScale = 0f; // this pauses the game action
+				}
+				else
+				{
+					Time.timeScale = 1f; // this unpauses the game action (ie. back to normal)
+					UIGamePaused.SetActive(false); // remove the pause UI
+				}
 			}
-			else
-			{
-				Time.timeScale = 1f; // this unpauses the game action (ie. back to normal)
-				UIGamePaused.SetActive(false); // remove the pause UI
-			}
-		}
 	}
 
 	// setup all the variables, the UI, and provide errors if things not setup properly.
