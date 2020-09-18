@@ -20,8 +20,11 @@ public class VirtualJoystickManager : MonoBehaviour
 
 	public void ShowJoystick()
 	{
-		virtualJoystick.SetActive(true);
-		pauseMenuButton.SetActive(true);
+		if(Application.platform == RuntimePlatform.Android)
+		{
+			virtualJoystick.SetActive(true);
+			pauseMenuButton.SetActive(true);
+		}
 	}
 
 	public void HideJoystick()

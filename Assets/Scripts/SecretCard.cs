@@ -9,6 +9,7 @@ public class SecretCard : MonoBehaviour
 {
     public GameObject code;
     public int secretCode;
+    public GameObject status;
     private bool isTriggered = false;
     public float revealingTime = 10f;
     public GameObject slider;
@@ -20,6 +21,7 @@ public class SecretCard : MonoBehaviour
     void Start()
     {
         secretCode = Random.Range(1000, 10000);
+        status.GetComponent<Text>().text = "Activating";
     }
 
     // Update is called once per frame
@@ -32,11 +34,13 @@ public class SecretCard : MonoBehaviour
                 startTime = 0;
                 endTime = startTime + revealingTime;
                 keyDown = true;
+                status.SetActive(true);
             }
             if (CrossPlatformInputManager.GetButtonUp("Interact"))
             {
                 slider.GetComponent<Slider>().value = 0;
                 keyDown = false;
+                status.SetActive(false);
             }
             if (keyDown)
             {
@@ -50,6 +54,7 @@ public class SecretCard : MonoBehaviour
         if(!isFound && startTime > endTime)
         {
             isFound = true;
+            status.GetComponent<Text>().text = "Activated";
             code.SetActive(true);
             code.GetComponent<Text>().text = secretCode.ToString();
             slider.SetActive(false);
@@ -59,6 +64,7 @@ public class SecretCard : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         isTriggered = true;
+        if(!isFound)
         slider.SetActive(true);
     }
 
@@ -66,6 +72,7 @@ public class SecretCard : MonoBehaviour
     {
         isTriggered = false;
         slider.SetActive(false);
+        status.SetActive(false);
     }
 
     public void OpenCard(GameObject cardPanel)
