@@ -23,6 +23,8 @@ public class ActivateSwitch : MonoBehaviour
         if (isTriggered && CrossPlatformInputManager.GetButtonDown("Interact"))
         {
             secretCodeInputPanel.SetActive(true);
+            GameManager.gm.PauseGame(true);
+            GameManager.gm.GetComponent<VirtualJoystickManager>().HideJoystick();
         }
     }
 

@@ -51,11 +51,11 @@ public class SettingsManager : MonoBehaviour
     {
         if (isFullScreen)
         {
-            PlayerPrefs.SetFloat("FullScreen", 1);
+            PlayerPrefs.SetInt("FullScreen", 1);
         }
         else
         {
-            PlayerPrefs.SetFloat("FullScreen", 0);
+            PlayerPrefs.SetInt("FullScreen", 0);
         }
         Screen.fullScreen = isFullScreen;
     }

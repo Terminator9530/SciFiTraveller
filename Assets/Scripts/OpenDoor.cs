@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets.CrossPlatformInput;
 
 public class OpenDoor : MonoBehaviour
 {
@@ -17,7 +18,7 @@ public class OpenDoor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isTriggered && Input.GetKeyDown(KeyCode.E))
+        if (isTriggered && CrossPlatformInputManager.GetButtonDown("Interact"))
         {
             doorOpen.SetActive(true);
             doorUnlocked.SetActive(false);
