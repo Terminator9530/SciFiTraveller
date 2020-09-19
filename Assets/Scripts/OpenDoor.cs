@@ -22,6 +22,7 @@ public class OpenDoor : MonoBehaviour
         {
             doorOpen.SetActive(true);
             doorUnlocked.SetActive(false);
+            TasksManager.tm.TaskCompleted(2);
         }
     }
 
