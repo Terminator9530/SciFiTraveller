@@ -52,8 +52,10 @@ public class SpaceShipAttraction : MonoBehaviour
 
     public void DestroyPlayer()
     {
-        Destroy(attractedObject.gameObject);
+        Destroy(attractingObject.gameObject);
+        attractedObject.gravityScale = 1f;
         isAttraction = false;
         Debug.Log("Destroyed");
+        GameManager.gm.ResetGame();
     }
 }

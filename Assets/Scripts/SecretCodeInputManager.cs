@@ -54,6 +54,7 @@ public class SecretCodeInputManager : MonoBehaviour
             activateSwitch.GetComponent<ActivateSwitch>().ActivateDoor();
             ClearCode();
             status.SetInteger("Status", 1);
+            GameManager.gm.PauseGame(false);
             StartCoroutine(DisableGameObject());
         }
         else

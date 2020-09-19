@@ -219,4 +219,16 @@ public class GameManager : MonoBehaviour
 		yield return new WaitForSeconds(3.5f);
 		SceneManager.LoadScene(levelAfterVictory);
 	}
+
+	public void PauseGame(bool status)
+	{
+		if (status)
+		{
+			Time.timeScale = 0f;
+		}
+		else
+		{
+			Time.timeScale = 1f;
+		}
+	}
 }

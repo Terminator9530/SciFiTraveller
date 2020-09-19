@@ -21,7 +21,7 @@ public class SecretCard : MonoBehaviour
     void Start()
     {
         secretCode = Random.Range(1000, 10000);
-        status.GetComponent<Text>().text = "Activating";
+        status.GetComponent<Text>().text = "Hold E to Activate";
     }
 
     // Update is called once per frame
@@ -34,13 +34,14 @@ public class SecretCard : MonoBehaviour
                 startTime = 0;
                 endTime = startTime + revealingTime;
                 keyDown = true;
+                status.GetComponent<Text>().text = "Activating";
                 status.SetActive(true);
             }
             if (CrossPlatformInputManager.GetButtonUp("Interact"))
             {
                 slider.GetComponent<Slider>().value = 0;
+                status.GetComponent<Text>().text = "Hold E to Activate";
                 keyDown = false;
-                status.SetActive(false);
             }
             if (keyDown)
             {
@@ -64,7 +65,8 @@ public class SecretCard : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         isTriggered = true;
-        if(!isFound)
+        status.SetActive(true);
+        if (!isFound)
         slider.SetActive(true);
     }
 
@@ -82,6 +84,7 @@ public class SecretCard : MonoBehaviour
             cardPanel.SetActive(true);
             GameObject secretCodeText = cardPanel.transform.GetChild(1).gameObject;
             secretCodeText.GetComponent<Text>().text = secretCode.ToString();
+            GameManager.gm.PauseGame(true);
         }
     }
 }
