@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine.UI; // include UI namespace so can reference UI elements
 using UnityEngine.SceneManagement; // include so we can manipulate SceneManager
 using UnityStandardAssets.CrossPlatformInput;
+using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
@@ -19,23 +20,31 @@ public class GameManager : MonoBehaviour
 	public int highscore = 0;
 	public int startLives = 3;
 	public int lives = 3;
+	public float totalTime = 60f;
 
 	// UI elements to control
 	public Text UIScore;
+	public Text timerText;
 	public Text UIHighScore;
 	public Text UILevel;
 	public GameObject[] UIExtraLives;
 	public GameObject UIGamePaused;
 	public GameObject settingUI;
+	public GameObject background;
+	public Sprite[] backgrounds;
 
 	// private variables
 	GameObject _player;
 	Vector3 _spawnLocation;
 	Scene _scene;
+	float timer;
 
 	// set things up here
 	void Awake()
 	{
+		timer = totalTime;
+		int index = Random.Range(0, backgrounds.Length);
+		background.GetComponent<SpriteRenderer>().sprite = backgrounds[index];
 		Time.timeScale = 1f;
 		// setup reference to game manager
 		if (gm == null)
@@ -63,6 +72,16 @@ public class GameManager : MonoBehaviour
 					UIGamePaused.SetActive(false); // remove the pause UI
 				}
 			}
+
+		if(timer < 0)
+		{
+			ResetGame();
+		}
+		else
+		{
+			timer -= Time.deltaTime;
+			timerText.text = Mathf.Round(timer).ToString();
+		}
 	}
 
 	// setup all the variables, the UI, and provide errors if things not setup properly.
@@ -139,6 +158,7 @@ public class GameManager : MonoBehaviour
 		UIScore.text = score.ToString();
 		UIHighScore.text = "Highscore: " + highscore.ToString();
 		UILevel.text = _scene.name;
+		timerText.text = Mathf.Round(totalTime).ToString();
 
 		// turn on the appropriate number of life indicators in the UI based on the number of lives left
 		for (int i = 0; i < UIExtraLives.Length; i++)
@@ -176,6 +196,7 @@ public class GameManager : MonoBehaviour
 	{
 		// remove life and update GUI
 		lives--;
+		timer = totalTime;
 		refreshGUI();
 
 		if (lives <= 0)
