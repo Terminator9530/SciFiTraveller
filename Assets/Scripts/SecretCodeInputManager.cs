@@ -54,12 +54,14 @@ public class SecretCodeInputManager : MonoBehaviour
             activateSwitch.GetComponent<ActivateSwitch>().ActivateDoor();
             ClearCode();
             status.SetInteger("Status", 1);
+            StartCoroutine(IdleState());
             GameManager.gm.PauseGame(false);
             StartCoroutine(DisableGameObject());
         }
         else
         {
             status.SetInteger("Status", 2);
+            StartCoroutine(IdleState());
         }
     }
 
@@ -78,5 +80,11 @@ public class SecretCodeInputManager : MonoBehaviour
         gameObject.SetActive(false);
         GameManager.gm.GetComponent<VirtualJoystickManager>().ShowJoystick();
 
+    }
+
+    IEnumerator IdleState()
+    {
+        yield return new WaitForSecondsRealtime(2f);
+        status.SetInteger("Status", 0);
     }
 }
