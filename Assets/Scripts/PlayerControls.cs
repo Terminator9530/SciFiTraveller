@@ -41,6 +41,7 @@ public class PlayerControls : MonoBehaviour
 	public GameObject aeroplane;
 	public GameObject cameraObject;
 	public AudioClip shoot;
+	public GameObject tasksPanel;
 	public float bulletForce;
 
 	// private variables below
@@ -192,6 +193,14 @@ public class PlayerControls : MonoBehaviour
 			aeroplane.transform.position = gameObject.transform.position;
 			cameraObject.GetComponent<CameraFollow>().target = aeroplane.transform;
 			gameObject.SetActive(false);
+		}
+
+		if (CrossPlatformInputManager.GetButtonDown("Tasks"))
+		{
+			if(tasksPanel.activeInHierarchy)
+			tasksPanel.SetActive(false);
+			else
+			tasksPanel.SetActive(true);
 		}
 	}
 

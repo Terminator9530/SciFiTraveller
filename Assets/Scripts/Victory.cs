@@ -33,6 +33,7 @@ public class Victory : MonoBehaviour
 
 	private void TakeCoin(Collider2D other)
 	{
+		TasksManager.tm.TaskCompleted(3);
 		// mark as taken so doesn't get taken multiple times
 		taken = true;
 

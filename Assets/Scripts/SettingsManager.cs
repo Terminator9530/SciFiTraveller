@@ -7,9 +7,14 @@ public class SettingsManager : MonoBehaviour
 {
     public Slider slider;
     public Toggle fullScreen;
+    public GameObject fullScreenPanel;
     // Start is called before the first frame update
     void Start()
     {
+        if(Application.platform == RuntimePlatform.Android)
+        {
+            fullScreenPanel.gameObject.SetActive(false);
+        }
         if (PlayerPrefs.HasKey("Volume"))
         {
             slider.value = PlayerPrefs.GetFloat("Volume");

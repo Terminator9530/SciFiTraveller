@@ -79,6 +79,7 @@ public class SecretCodeInputManager : MonoBehaviour
         yield return new WaitForSeconds(2f);
         gameObject.SetActive(false);
         GameManager.gm.GetComponent<VirtualJoystickManager>().ShowJoystick();
+        TasksManager.tm.TaskCompleted(1);
 
     }
 

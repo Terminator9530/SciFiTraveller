@@ -55,6 +55,7 @@ public class SecretCard : MonoBehaviour
         if(!isFound && startTime > endTime)
         {
             isFound = true;
+            TasksManager.tm.TaskCompleted(0);
             status.GetComponent<Text>().text = "Activated";
             code.SetActive(true);
             code.GetComponent<Text>().text = secretCode.ToString();

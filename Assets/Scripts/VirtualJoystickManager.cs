@@ -6,6 +6,7 @@ public class VirtualJoystickManager : MonoBehaviour
 {
     public GameObject virtualJoystick;
     public GameObject pauseMenuButton;
+	public GameObject taskPanelSwitcher;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +25,7 @@ public class VirtualJoystickManager : MonoBehaviour
 		{
 			virtualJoystick.SetActive(true);
 			pauseMenuButton.SetActive(true);
+			taskPanelSwitcher.SetActive(true);
 		}
 	}
 
@@ -31,6 +33,7 @@ public class VirtualJoystickManager : MonoBehaviour
 	{
 		virtualJoystick.SetActive(false);
 		pauseMenuButton.SetActive(false);
+		taskPanelSwitcher.SetActive(false);
 	}
 
 	private void showJoystickWhenAppropriate()
