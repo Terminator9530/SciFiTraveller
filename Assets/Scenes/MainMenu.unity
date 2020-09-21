@@ -6447,10 +6447,12 @@ MonoBehaviour:
 
     4 ) Spacebar for jumping
 
-    5) Z for switch character
+    5 ) Z for switch character
 
-    6)
-    E for interact'
+    6
+    ) E for interact
+
+    7 ) Tab for tasks '
 --- !u!222 &1676115617
 CanvasRenderer:
   m_ObjectHideFlags: 0

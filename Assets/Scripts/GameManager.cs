@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
 	public GameObject settingUI;
 	public GameObject background;
 	public Sprite[] backgrounds;
+	public GameObject timerUpPanel;
 
 	// private variables
 	GameObject _player;
